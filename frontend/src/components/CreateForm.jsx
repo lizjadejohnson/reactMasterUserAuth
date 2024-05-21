@@ -19,8 +19,8 @@ const CreateForm = ({ setNotes }) => {
           body: JSON.stringify(createForm)
         });
         const data = await response.json();
-        if (data && data.notes) {
-        setNotes(previousNotes => [...previousNotes, data.notes]);
+        if (data && data.note) {
+        setNotes(previousNotes => [...previousNotes, data.note]);
         } else {
         // Handle unexpected response structure:
         console.error("Unexpected response structure:", data);

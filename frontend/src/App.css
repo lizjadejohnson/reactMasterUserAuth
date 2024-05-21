@@ -51,7 +51,9 @@
   color:  peru;
 }
 
-.formAdmin{
-  display: flex;
-  flex-direction: column;
+.formAdmin {
+  border: solid purple 2px;
+  border-radius: 12px;
+  margin: 1em;
+  height: 32vh;
 }
