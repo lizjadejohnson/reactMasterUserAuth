@@ -1,7 +1,8 @@
-require("dotenv").config()
-//Allows .env
+require("dotenv").config()  //Allows .env
+
 
 const express = require("express")
+const cookieParser = require('cookie-parser');
 const path = require('path');
 const cors = require("cors");
 
@@ -20,9 +21,9 @@ const todosRoutes = require('./routes/todosRoutes.js');
 const usersRoutes = require('./routes/usersRoutes.js');
 
 
-
+// --------------Middlewares--------------
 app.use(express.json()) //Express doesn't naturally convert our data to json
-
+app.use(cookieParser());
 app.use(cors())
 
 
