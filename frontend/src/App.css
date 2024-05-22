@@ -8,6 +8,17 @@
 
 .App {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.MainContent {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  margin-top: 1em;
 }
 
 .logo {
@@ -73,10 +84,7 @@
   align-items: center;
   padding: 0;
   margin: 0;
-}
-
-.navbar li {
-  margin-right: 10px; /* Adjust spacing between links as needed */
+  gap: 20px;
 }
 
 .navbar a, .dropdown-menu a {
@@ -118,9 +126,16 @@
   margin-top: 2%;
 }
 
-.login-container input {
+input {
   border-radius: 3px;
-  border: 1px #a3a3a3;
+  border: 1px solid #a3a3a3;
+  margin-left: 5px;
+  padding: 3px;
+}
+
+textarea {
+  border-radius: 3px;
+  border: 1px solid #a3a3a3;
   margin-left: 5px;
   padding: 3px;
 }
@@ -139,21 +154,41 @@
   display: inherit;
 }
 
-/* ========================================================================================== */
+/* ===================================NOTES/NOTES FORMS======================================================= */
 
 .a-note, .formAdmin{
-  border: solid black 1px;
+  border: solid 1px #a1a1a1;
+  border-radius: 10px;
   margin: 1em;
+  padding-bottom: 20px;
 }
 
 .a-note:hover{
-  background-color: light blue;
+  background-color: antiquewhite;
   color:  peru;
+  cursor: pointer;
 }
 
-.formAdmin {
-  border: solid purple 2px;
-  border-radius: 12px;
-  margin: 1em;
-  height: 32vh;
+
+/* ===================================SIGN UP PAGE======================================================= */
+
+.signup-container{
+  min-width: 30%;
+  max-width: 60%;
+  margin: 0 auto;
+}
+
+
+.signup-container form{
+  display: block;
+  padding: 1%;
+  padding-top: 5%;
+  border: 1px solid #a3a3a3;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  width: 100%;
+}
+
+.signup-container input{
+  min-width: 50%;
 }

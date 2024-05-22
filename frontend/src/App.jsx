@@ -1,35 +1,32 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import { getNotes } from './components/getNotes'
-import NotesPage from './pages/NotesPage'
-import CreateForm from './components/CreateForm'
-import UpdateForm from './components/UpdateForm'
-import Navbar from './components/Navbar';
+import {Route, Routes} from "react-router-dom";
 
+import NotesPage from './pages/NotesPage'
+import Navbar from './components/Navbar';
+import SignUpPage from './pages/SignUpPage';
 
 
 function App() {
 
   //------------------------------------------[State]-----------------------------------------------------
 
-  const [notes, setNotes] = useState([]);
-  const [updateForm, setUpdateForm] = useState({ _id: null, title: '', body: '' });
 
-  
 
   //------------------------------------------[CRUD Operations]-------------------------------------------
 
-  useEffect(() => {
-    getNotes(setNotes)
-  }, [notes])
+
 
   return (
     <>
-      <Navbar />
       <div className='App'>
-          <CreateForm setNotes={setNotes} />
-          <UpdateForm updateForm={updateForm} setUpdateForm={setUpdateForm} />
-          <NotesPage notes={notes} setNotes={setNotes} setUpdateForm={setUpdateForm} />
+          <Navbar />
+          <div className='MainContent'>
+            <Routes>
+              <Route path="/notes" element={<NotesPage />} />
+              <Route path="/signup" element={<SignUpPage />} />
+            </Routes>
+          </div>
       </div>
     </>
   );

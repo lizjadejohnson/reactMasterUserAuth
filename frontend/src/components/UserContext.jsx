@@ -20,7 +20,7 @@ const UserProvider = ({ children }) => {
         //This sets the user state to the user
         setUser(response.data.user);
       } catch (error) {
-        console.error('Login failed:', error.response.data.message);
+        console.error('Login failed:', error);
       }
     };
 
@@ -34,14 +34,24 @@ const UserProvider = ({ children }) => {
         //This sets the user state back to null
         setUser(null);
       } catch (error) {
-        console.error('Logout failed:', error.response.data.message);
+        console.error('Logout failed:', error);
+      }
+    };
+
+    //Function to sign up:
+    const signup = async (username, email, password) => {
+      try {
+        const response = await axios.post('http://localhost:3000/users', { username, email, password }, { withCredentials: true });
+        setUser(response.data.user);
+      } catch (error) {
+        console.error('Signup failed:', error);
       }
     };
   
     return (
         //Allows us to wrap components with the user state
         //Provides access to the loigin & logout functions as well as the user state:
-      <UserContext.Provider value={{ user, login, logout }}>
+      <UserContext.Provider value={{ user, login, logout, signup }}>
         {children}
       </UserContext.Provider>
     );

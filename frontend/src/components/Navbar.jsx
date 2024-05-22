@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { UserContext } from './UserContext';
+import { Link } from 'react-router-dom';
 
 
 const Navbar = () => {
@@ -65,7 +66,7 @@ const Navbar = () => {
                                             <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} required />
                                         </div>
                                         <button type="submit">Login</button>
-                                        <a id="create-button" href="/signup">Create New Account</a>
+                                        <Link id="create-button" to="/signup">Create New Account</Link>
                                     </form>
                                 </div>
                             </div>

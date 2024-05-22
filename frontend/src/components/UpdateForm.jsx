@@ -1,4 +1,7 @@
-export default function UpdateForm({ updateForm, setUpdateForm }) {
+import React from "react";
+
+export default function UpdateForm({ updateForm, setUpdateForm, setNotes, setShowEdit }) {
+
     function handleChange(event) {
       setUpdateForm({
         ...updateForm,
@@ -14,15 +17,25 @@ export default function UpdateForm({ updateForm, setUpdateForm }) {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(updateForm)
         })
+        const updatedNote = await response.json();
+        setNotes(prevNotes => 
+          prevNotes.map(note => note._id === updatedNote._id ? updatedNote : note)
+        );
         setUpdateForm({ _id: null, title: '', body: '' })
+        setShowEdit(false); // Hide the form after updating!!
       } catch (error) {
         console.error(error)
       }
     }
+
+    function handleClose(event) {
+      event.preventDefault()
+        setShowEdit(false); // Hide the form because close clicked
+    }
   
     return (
       <div className='formAdmin'>
-        <h1>Update Form</h1>
+        <h1>Edit Note</h1>
         <form onSubmit={handleSubmit}>
           <input
             type='text'
@@ -39,6 +52,7 @@ export default function UpdateForm({ updateForm, setUpdateForm }) {
             onChange={handleChange}
           /><br />
           <button type='submit'>Update</button>
+          <button onClick={handleClose}>Cancel</button>
         </form>
       </div>
     );
