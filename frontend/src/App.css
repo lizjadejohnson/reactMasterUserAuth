@@ -1,8 +1,13 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  padding: 0;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.App {
+  width: 100%;
 }
 
 .logo {
@@ -40,6 +45,101 @@
 .read-the-docs {
   color: #888;
 }
+
+/* ================= NAVBAR =================*/
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 70px;
+  width: 100%;
+  margin-left: 0 auto;
+  box-sizing: border-box;
+}
+
+.navbar, .dropdown-menu {
+  background-color: #a1a1a1;
+  color: white;
+}
+
+.navbar-title {
+  color: white;
+  font-size: 24px;
+}
+
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar li {
+  margin-right: 10px; /* Adjust spacing between links as needed */
+}
+
+.navbar a, .dropdown-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+
+}
+
+.dropdown-menu a {
+  display: block;
+}
+
+.navbar a:hover, .dropdown-menu a:hover {
+  background-color: #a3a3a3;
+  color: rgb(255, 204, 204);
+}
+
+/* =====Navbar Dropdown Menu===== */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 125%;
+  left: 0;
+  min-width: 100px;
+  z-index: 1;
+}
+
+#login-dropdown {
+  width: 300px;
+  left: -200%;
+}
+
+.login-container button {
+  margin-top: 2%;
+}
+
+.login-container input {
+  border-radius: 3px;
+  border: 1px #a3a3a3;
+  margin-left: 5px;
+  padding: 3px;
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block; /* Show the dropdown menu only when the parent menu item is hovered over */
+}
+
+/* Hide dropdown menu by default */
+.navbar ul ul {
+  display: none;
+}
+
+/* Display dropdown menu only when its parent is hovered over */
+.navbar ul li:hover > ul {
+  display: inherit;
+}
+
+/* ========================================================================================== */
 
 .a-note, .formAdmin{
   border: solid black 1px;

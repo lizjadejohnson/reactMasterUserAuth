@@ -4,6 +4,8 @@ import { getNotes } from './components/getNotes'
 import NotesPage from './pages/NotesPage'
 import CreateForm from './components/CreateForm'
 import UpdateForm from './components/UpdateForm'
+import Navbar from './components/Navbar';
+
 
 
 function App() {
@@ -12,7 +14,6 @@ function App() {
 
   const [notes, setNotes] = useState([]);
   const [updateForm, setUpdateForm] = useState({ _id: null, title: '', body: '' });
-  
 
   
 
@@ -23,11 +24,14 @@ function App() {
   }, [notes])
 
   return (
-    <div className='App'>
-      <CreateForm setNotes={setNotes} />
-      <UpdateForm updateForm={updateForm} setUpdateForm={setUpdateForm} />
-      <NotesPage notes={notes} setNotes={setNotes} setUpdateForm={setUpdateForm} />
-    </div>
+    <>
+      <Navbar />
+      <div className='App'>
+          <CreateForm setNotes={setNotes} />
+          <UpdateForm updateForm={updateForm} setUpdateForm={setUpdateForm} />
+          <NotesPage notes={notes} setNotes={setNotes} setUpdateForm={setUpdateForm} />
+      </div>
+    </>
   );
 }
 

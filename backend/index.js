@@ -24,7 +24,10 @@ const usersRoutes = require('./routes/usersRoutes.js');
 // --------------Middlewares--------------
 app.use(express.json()) //Express doesn't naturally convert our data to json
 app.use(cookieParser());
-app.use(cors())
+app.use(cors({
+    origin: 'http://localhost:5000', // This refers to the frontend port, needed for credentials
+    credentials: true
+  }));
 
 
 connectToDb()
