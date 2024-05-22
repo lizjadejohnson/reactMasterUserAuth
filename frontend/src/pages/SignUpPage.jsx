@@ -6,6 +6,7 @@ const SignUpPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const { signup } = useContext(UserContext);
 
@@ -16,13 +17,14 @@ const SignUpPage = () => {
     event.preventDefault();
     try {
       await signup(username, email, password);
-      console.log('Signup successful! You can now log in.');
+      setMessage('Signup successful! You can now log in.');
       //Redirects to notes after successful login
       navigate('/notes');
     } catch (error) {
-      console.log('Signup failed. Please try again.');
-    }
-  };
+        const message = error.message || 'Signup failed. Please try again.';
+        setMessage(message);
+      }
+    };
 
   return (
     <div className='signup-container'>
@@ -42,6 +44,7 @@ const SignUpPage = () => {
         </div>
         <button type="submit">Sign Up</button>
       </form>
+      {message && <p style={{ color: 'red' }}>{message}</p>}
     </div>
   );
 };

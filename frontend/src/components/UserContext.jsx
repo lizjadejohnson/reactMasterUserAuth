@@ -11,7 +11,6 @@ const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
   
     //Function to login
-
     const login = async (email, password) => {
       try {
         //This logs the user in
@@ -20,7 +19,11 @@ const UserProvider = ({ children }) => {
         //This sets the user state to the user
         setUser(response.data.user);
       } catch (error) {
-        console.error('Login failed:', error);
+        if (error.response && error.response.data && error.response.data.message) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw new Error('Login failed');
+        }
       }
     };
 
@@ -34,7 +37,11 @@ const UserProvider = ({ children }) => {
         //This sets the user state back to null
         setUser(null);
       } catch (error) {
-        console.error('Logout failed:', error);
+        if (error.response && error.response.data && error.response.data.message) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw new Error('Logout failed');
+        }
       }
     };
 
@@ -44,7 +51,11 @@ const UserProvider = ({ children }) => {
         const response = await axios.post('http://localhost:3000/users', { username, email, password }, { withCredentials: true });
         setUser(response.data.user);
       } catch (error) {
-        console.error('Signup failed:', error);
+        if (error.response && error.response.data && error.response.data.message) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw new Error('Signup failed');
+        }
       }
     };
   
