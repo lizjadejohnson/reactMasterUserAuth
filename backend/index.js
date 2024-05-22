@@ -35,8 +35,11 @@ connectToDb()
 // ---------------------------------------------reQs
 // ---------------------------------------------Routing
 
-// Serve static files from the React app
+// Serve static files from the React app Dist build:
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
+
+// Also serve static files from the public directory:
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
 
 app.get("/", (req,res)=>{

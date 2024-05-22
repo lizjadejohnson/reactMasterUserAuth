@@ -8,6 +8,7 @@ const Navbar = () => {
     //STATES FOR LOGGING IN:
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
 
     //Pulls in the contexts from our UserContext:
     const { login, logout, user } = useContext(UserContext);
@@ -38,14 +39,14 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <span className='navbar-title'>Magickal Diary</span>
+            <span className='navbar-title'>Notes App</span>
             <ul>
                 <li><a href="/">Home</a></li>
                 {user ? (
                     <li className="dropdown">
                         <a href="#" className="dropdown-toggle">Account</a>
                         <ul className="dropdown-menu">
-                            <li><a href="/edit-profile">User: {user.username}<br />Edit Profile</a></li>
+                            <li><Link to="/edit-profile">{user.username}: Edit Profile</Link></li>
                             <li><a href="/logout" onClick={handleLogout}>Logout</a></li>
                         </ul>
                     </li>
@@ -74,13 +75,14 @@ const Navbar = () => {
                     </li>
                 )}
                 <li className="dropdown">
-                    <a href="#" className="dropdown-toggle">Horoscopes</a>
+                    <a href="#" className="dropdown-toggle">Content</a>
                     <ul className="dropdown-menu">
-                        <li><a href="/horoscope">Western Zodiac</a></li>
-                        <li><a href="/eastern-zodiac">Eastern Zodiac</a></li>
+                        <li><Link to="/notes">Notes</Link></li>
+                        <li><a href="#">Content Link 2</a></li>
+                        <li><a href="#">Content Link 3</a></li>
                     </ul>
                 </li>
-                <li><a href="/about">About</a></li>
+                <li><Link to="/about">About</Link></li>
             </ul>
         </nav>
   );

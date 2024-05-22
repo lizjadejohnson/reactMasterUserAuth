@@ -18,8 +18,14 @@ router.get("/logout", authenticate, usersController.logoutUser);
 // Fetch all users (GET)
 router.get("/", authenticate, usersController.fetchAllUsers);
 
+// Fetch current user (GET)
+router.get("/me", authenticate, usersController.fetchMe);
+
 // Fetch specific user by ID (GET)
 router.get("/:id", authenticate, usersController.fetchUser);
+
+// Update the current user (PUT)
+router.put("/me", authenticate, usersController.updateUser);
 
 // Update a specific user (PUT)
 router.put("/:id", authenticate, usersController.updateUser);

@@ -32,8 +32,8 @@ const CreateForm = ({ setNotes }) => {
     }
   
     return (
-      <div className='formAdmin'>
-        <h1>Create Form</h1>
+      <div className='createform'>
+        <h1>Create Note</h1>
         <form onSubmit={handleSubmit}>
           <input
             type='text'
@@ -44,7 +44,7 @@ const CreateForm = ({ setNotes }) => {
           /><br />
           <textarea
             name='body'
-            cols='20' rows='5'
+            cols='50' rows='5'
             placeholder='Note Body'
             value={createForm.body}
             onChange={handleChange}

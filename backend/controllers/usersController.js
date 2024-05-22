@@ -27,9 +27,9 @@ const fetchAllUsers = async (req, res) => {
 // -----Get specific Users by ID (GET)----------:
 const fetchUser = async (req, res) => {
 
-    const userId = req.params.id;
+    const userId = req.params.id || req.userId;
     try {
-        const user = await User.findById(userId);
+        const user = await User.findById(userId).select('-password'); // Exclude the password
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -42,6 +42,15 @@ const fetchUser = async (req, res) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
+// -----Get currently logged in user (GET)----------:
+const fetchMe = async (req, res) => {
+    if (!req.user) {
+        return res.status(404).json({ message: 'User not found' });
+    }
+    res.json({ user: req.user });
+};
+////////////////////////////////////////////////////////////////////////////////////////
+
 // ----------Create a User (POST):----------
 const createUser = async (req, res) => {
 
@@ -52,16 +61,26 @@ const createUser = async (req, res) => {
     const {username, password, email} = req.body //This is the same as writing the 2 lines above!
     console.log("Received request body:", req.body);
 
-    // Check if all required fields are present:
+    // Check if all required fields are actually *present*:
     if (!username || !password || !email) {
         console.error('Missing required fields:', { username, password, email });
-        return res.status(400).json({ message: 'Username, password, and email are required' });
+        return res.status(400).json({ message: 'Username, password, and email are all required' });
     }
 
     // Ensure the fields are of the correct type:
     if (typeof username !== 'string' || typeof password !== 'string' || typeof email !== 'string') {
         console.error('Invalid field types:', { username, password, email });
         return res.status(400).json({ message: 'Username, password, and email must be strings' });
+    }
+
+    //Username must be 3-20 characters long
+    if (username.length < 3 || username.length > 20) {
+        return res.status(400).json({ message: 'Username must be 3-20 characters long' });
+    }
+
+    //Check for password quality:
+    if (password.length < 8 || !/\d/.test(password) || !/[A-Z]/.test(password)) {
+        return res.status(400).json({ message: 'Password must be at least 8 characters long and include at least one number and one uppercase letter' });
     }
 
 
@@ -108,48 +127,55 @@ const createUser = async (req, res) => {
 // ----------Update a specific user (PUT)----------
 const updateUser = async (req, res) => {
 
-    //1. Get the ID off the URL:
-    const userId = req.params.id
+    const userId = req.user._id;  // Get id off the authenticated token
+    const { username, password, email } = req.body;
 
-    //2. Get the data off the ID:
-    const {username, password, email} = req.body
-
-    // Check if required fields are of the correct type:
+    // Validate input types upfront:
+    if (email && typeof email !== 'string') {
+        return res.status(400).json({ message: 'Invalid email format' });
+    }
     if (username && typeof username !== 'string') {
-        console.error('Invalid username type:', username);
-        return res.status(400).json({ message: 'Username must be a string' });
+        return res.status(400).json({ message: 'Invalid username format' });
     }
     if (password && typeof password !== 'string') {
-        console.error('Invalid password type:', password);
-        return res.status(400).json({ message: 'Password must be a string' });
+        return res.status(400).json({ message: 'Invalid password format' });
     }
-    if (email && typeof email !== 'string') {
-        console.error('Invalid email type:', email);
-        return res.status(400).json({ message: 'Email must be a string' });
+
+    // Build the update object:
+    const updateData = {};
+
+    if (username) {
+        if (username.length < 3 || username.length > 20) {
+            return res.status(400).json({ message: 'Username must be 3-20 characters long' });
+        }
+        updateData.username = username;
+    }
+
+
+    if (email) updateData.email = email.toLowerCase();
+
+    // Handle password change with extra care:
+    if (password) {
+        if (password.length < 8 || !/\d/.test(password) || !/[A-Z]/.test(password)) {
+            return res.status(400).json({ message: 'Password must be at least 8 characters long and include at least one number and one uppercase letter' });
+        }
+        const salt = await bcrypt.genSalt(10);
+        updateData.password = await bcrypt.hash(password, salt);
     }
 
     try {
-        // Hash new password if provided
-        let updateData = { username, email };
-        if (password) {
-            const salt = await bcrypt.genSalt(10);
-            updateData.password = await bcrypt.hash(password, salt);
-        }
-
-        // Find and update the user:
-        const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
+        // Ensure new: true to return the updated document
+        const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true }).select('-password');
         if (!updatedUser) {
             return res.status(404).json({ message: 'User not found' });
         }
-
-        // Send back updated user data (excluding password)
-        res.json({ user: { _id: updatedUser._id, username: updatedUser.username, email: updatedUser.email } });
-
+        res.json({ user: updatedUser });
     } catch (error) {
         console.error('Update error:', error);
-        res.status(500).json({ message: 'An error occurred during user update' });
+        res.status(500).json({ message: 'An error occurred during user update', error: error.message });
     }
 };
+
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -226,6 +252,7 @@ const logoutUser = async (req, res) => {
 module.exports = {
     fetchAllUsers,
     fetchUser,
+    fetchMe,
     createUser,
     updateUser,
     deleteUser,

@@ -18,11 +18,12 @@ const SignUpPage = () => {
     try {
       await signup(username, email, password);
       setMessage('Signup successful! You can now log in.');
-      //Redirects to notes after successful login
-      navigate('/notes');
+      //Redirects to home after successful login
+      navigate('/');
     } catch (error) {
         const message = error.message || 'Signup failed. Please try again.';
         setMessage(message);
+        setTimeout(() => setMessage(''), 3000);
       }
     };
 

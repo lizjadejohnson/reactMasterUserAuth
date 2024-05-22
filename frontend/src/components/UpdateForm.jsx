@@ -30,7 +30,7 @@ export default function UpdateForm({ updateForm, setUpdateForm, setNotes, setSho
 
     function handleClose(event) {
       event.preventDefault()
-        setShowEdit(false); // Hide the form because close clicked
+        setShowEdit(false); // Hide the form because 'close' clicked
     }
   
     return (
