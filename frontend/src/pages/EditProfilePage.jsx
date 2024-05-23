@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
-import { UserContext } from '../components/UserContext';
+import { UserContext } from '../../utilities/UserContext';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../components/Spinner';
 
 const EditProfilePage = () => {
     const { user, updateUser } = useContext(UserContext);
@@ -24,18 +25,25 @@ const EditProfilePage = () => {
         event.preventDefault();
         if (password !== confirmPassword) {
             setMessage('Passwords do not match.');
-            setTimeout(() => setMessage(''), 3000);
+            setTimeout(() => setMessage(''), 5000);
             return;
         }
         try {
             await updateUser({ username, email, password });
             setMessage('Profile updated successfully!');
-            setTimeout(() => setMessage(''), 3000);
+            setTimeout(() => setMessage(''), 5000);
         } catch (error) {
             setMessage(error.message || 'Profile update failed. Please try again.');
-            setTimeout(() => setMessage(''), 3000);
+            setTimeout(() => setMessage(''), 5000);
 
         }
+    };
+
+    //If someone is not logged in:
+    if (!user) {
+      return (
+        <Spinner redirectTo={'/'} delay={3000} message={"No user logged in. Redirecting to homepage..."}/>
+      );
     };
 
     return (

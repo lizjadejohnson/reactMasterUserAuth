@@ -5,11 +5,10 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   email: { type: String, required: true, unique: true, lowercase: true, index: true }, //Ensures the email is unique in the database
-  created_at: { type: Date, default: Date.now }
   // Add additional fields as needed
-});
+}, {timestamps: true});
 
-// Hash password before saving if it's modified
+// Hash password before saving:
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   try {

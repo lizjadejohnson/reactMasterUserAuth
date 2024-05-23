@@ -41,7 +41,7 @@ app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 // Also serve static files from the public directory:
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
-
+//When you access the localhost, serve the index.html file from the frontend:
 app.get("/", (req,res)=>{
     res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 })

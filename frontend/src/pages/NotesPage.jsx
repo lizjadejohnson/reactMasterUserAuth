@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getNotes } from '../components/getNotes'
-import Note from '../components/Note'
+import { getNotes } from '../../utilities/getNotes';
+import Note from '../components/Note';
 import CreateForm from '../components/CreateForm';
 
 

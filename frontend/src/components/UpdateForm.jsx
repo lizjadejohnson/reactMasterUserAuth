@@ -12,25 +12,34 @@ export default function UpdateForm({ updateForm, setUpdateForm, setNotes, setSho
     async function handleSubmit(event) {
       event.preventDefault()
       try {
-        await fetch(`http://localhost:3000/notes/${updateForm._id}`, {
+        const response = await fetch(`http://localhost:3000/notes/${updateForm._id}`, {
           method: "PUT",
-          headers: { 'Content-Type': 'application/json' },
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify(updateForm)
-        })
+        });
         const updatedNote = await response.json();
-        setNotes(prevNotes => 
+        setNotes(prevNotes =>
           prevNotes.map(note => note._id === updatedNote._id ? updatedNote : note)
         );
-        setUpdateForm({ _id: null, title: '', body: '' })
+  
+        setUpdateForm(prevState => ({
+          ...prevState,
+          id: null,
+          title: '',
+          body: ''
+        }));
+  
         setShowEdit(false); // Hide the form after updating!!
       } catch (error) {
         console.error(error)
       }
     }
-
+  
     function handleClose(event) {
       event.preventDefault()
-        setShowEdit(false); // Hide the form because 'close' clicked
+      setShowEdit(false); // Hide the form because 'close' clicked
     }
   
     return (

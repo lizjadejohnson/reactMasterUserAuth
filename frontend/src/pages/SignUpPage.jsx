@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
-import { UserContext } from '../components/UserContext';
+import { UserContext } from '../../utilities/UserContext';
 import { useNavigate } from 'react-router-dom'; 
+import Spinner from '../components/Spinner';
 
 const SignUpPage = () => {
   const [username, setUsername] = useState('');
@@ -8,7 +9,7 @@ const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
-  const { signup } = useContext(UserContext);
+  const { user, signup } = useContext(UserContext);
 
   //Needed to redirect with react-router-dom
   const navigate = useNavigate();
@@ -25,6 +26,13 @@ const SignUpPage = () => {
         setMessage(message);
         setTimeout(() => setMessage(''), 3000);
       }
+    };
+
+    //If someone is already logged in:
+    if (user) {
+      return (
+        <Spinner redirectTo={'/'} delay={3000} message={"User already logged in. Redirecting to homepage..."}/>
+      );
     };
 
   return (

@@ -1,10 +1,15 @@
 import { useState, useContext } from 'react';
-import { UserContext } from './UserContext';
+import { UserContext } from '../../utilities/UserContext';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Navbar = () => {
     
+    const navigate = useNavigate();
+
+
     //STATES FOR LOGGING IN:
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,6 +37,7 @@ const Navbar = () => {
         try{
             await logout();
             console.log("Logged out")
+            navigate('/');
         } catch (error) {
             console.log("Logout failed.")
         }
