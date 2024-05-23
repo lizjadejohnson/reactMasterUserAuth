@@ -1,8 +1,22 @@
-# React + Vite
+**Project Summary:**
+This is a template for a simple notes application.
+It has a complete frontend and backend which connects to a Mongo DB server.
+It features user context support with JWT and Bcrypt.
+This project is intended to be used as a template for projects requiring a setup frontend and backend with user support.
+This is a MERN project. Ensure that you remember to npm install all dependencies on the front and backend.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Server info:**
+Backend: 3000
+Frontend: 5000
+Proxy (setup on the backend package.json): 3000
+VISIT http://localhost:5000/
 
-Currently, two official plugins are available:
+npm run dev spins up the front and backend servers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**.env:**
+Remember to create a new .env file in the backend directory!
+It should look like:
+
+PORT=3000
+DB_URL=mongodb+srv://MONGOUSERNAME:YOURCLUSERPASSWORD.STRING.mongodb.net/DBNAME
+JWT_SECRET=WHATEVERYOUWANTYOURSECRETKEYTOBE
