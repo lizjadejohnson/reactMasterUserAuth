@@ -5,40 +5,44 @@ const bcrypt = require('bcryptjs') //Requires bcrypt encryption to encrypt passw
 const jwt = require('jsonwebtoken') //Be sure top also npm install this as well
 
 
-//Note that the methods are referenced in our main index.js file!
+//Note that some routes have been commented out - these were for template purposes.
+//Feel free to comment/uncomment/edit as needed for your application
 
-// -----Get ALL Users (GET):
-const fetchAllUsers = async (req, res) => {
-    try {
-        //1. Get all users from the DB:
-        const users = await User.find();
+////////////////////////////////////////////////////////////////////////////////////////
 
-        //2. Send the users back as a response:
-        res.json({users})
+// ----------Get ALL Users (GET)----------:
 
-    } catch (error) {
-        console.error('Error fetching all users:', error);
-        res.status(500).json({ message: 'An error occurred while fetching users', error: error.message });
-    }
-};
+// const fetchAllUsers = async (req, res) => {
+//     try {
+//         //1. Get all users from the DB:
+//         const users = await User.find();
+
+//         //2. Send the users back as a response:
+//         res.json({users})
+
+//     } catch (error) {
+//         console.error('Error fetching all users:', error);
+//         res.status(500).json({ message: 'An error occurred while fetching users', error: error.message });
+//     }
+// };
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
 // -----Get specific Users by ID (GET)----------:
-const fetchUser = async (req, res) => {
+// const fetchUser = async (req, res) => {
 
-    const userId = req.params.id || req.userId;
-    try {
-        const user = await User.findById(userId).select('-password'); // Exclude the password
-        if (!user) {
-            return res.status(404).json({ message: 'User not found' });
-        }
-        res.json({ user });
-    } catch (error) {
-        console.error('Error fetching user:', error);
-        res.status(500).json({ message: 'An error occurred while fetching the user', error: error.message });
-    }
-};
+//     const userId = req.params.id || req.userId;
+//     try {
+//         const user = await User.findById(userId).select('-password'); // Exclude the password
+//         if (!user) {
+//             return res.status(404).json({ message: 'User not found' });
+//         }
+//         res.json({ user });
+//     } catch (error) {
+//         console.error('Error fetching user:', error);
+//         res.status(500).json({ message: 'An error occurred while fetching the user', error: error.message });
+//     }
+// };
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -242,6 +246,8 @@ const loginUser = async (req, res) => {
     }
 };
 
+////////////////////////////////////////////////////////////////////////////////////////
+
 // ----------User Logout:----------
 const logoutUser = async (req, res) => {
     res.clearCookie('token');
@@ -250,8 +256,8 @@ const logoutUser = async (req, res) => {
 
 
 module.exports = {
-    fetchAllUsers,
-    fetchUser,
+    // fetchAllUsers,
+    // fetchUser,
     fetchMe,
     createUser,
     updateUser,
