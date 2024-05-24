@@ -34,7 +34,7 @@ export default function NotesPage() {
           />
         ))
       ) : (
-        <p>No notes to display. Please create some notes.</p>
+        <p>No notes to display. Try creating some!</p>
       )}
     </div>
   );
