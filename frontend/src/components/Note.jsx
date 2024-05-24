@@ -10,8 +10,11 @@ const Note = ({notes, note, setNotes}) => {
   async function handleClick(_id) {
     try {
       await fetch(`http://localhost:3000/notes/${_id}`, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Include credentials (cookies)
       })
+
       const newNotes = notes.filter(note => note._id !== _id)
       setNotes([...newNotes])
     } catch (error) {

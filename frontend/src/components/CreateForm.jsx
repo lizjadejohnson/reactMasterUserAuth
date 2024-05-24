@@ -16,6 +16,7 @@ const CreateForm = ({ setNotes }) => {
         const response = await fetch('http://localhost:3000/notes', {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
+          credentials: 'include', // Include credentials (cookies)
           body: JSON.stringify(createForm)
         });
         const data = await response.json();

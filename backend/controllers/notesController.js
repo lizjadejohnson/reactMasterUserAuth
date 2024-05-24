@@ -5,22 +5,27 @@ const Note = require('../models/note')
 
 // -----Get ALL Notes (GET):
 const fetchAllNotes = async (req, res) => {
+    try {
+        console.log("Fetching all notes for user:", req.user._id);
+        const userId = req.user._id;
+        const notes = await Note.find({ user: userId });
+        res.json({ notes: notes });
+    } catch (error) {
+        console.error("Error fetching notes:", error);
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
 
-    //1. Get all notes from the DB:
-    const notes = await Note.find();
-
-    //2. Send the notes back as a response:
-    res.json({notes: notes})
-}
 
 // -----Get specific Notes by ID (GET):
 const fetchNote = async (req, res) => {
 
     //1. Get our ID off the URL:
     const noteID = req.params.id
+    const userID = req.user._id;
 
     //2. Find the specific note using that ID:
-    const note = await Note.findById(noteID)
+    const note = await Note.findOne({ _id: noteID, user: userID });
 
     //3. Send response with that Note as the payload
     res.json({note: note})
@@ -35,11 +40,13 @@ const createNote = async (req, res) => {
     // const title = req.body.title
     // const body = req.body.body
     const {title,body} = req.body //This is the same as writing the 2 lines above!
+    const userId = req.user._id; //Get the user id
     
     //2. Create the note:
     const note = await Note.create({
         title: title,
-        body: body
+        body: body,
+        user: userId
     })
     
     //3. Respond with new copy of note
@@ -56,14 +63,18 @@ const updateNote = async (req, res) => {
     //2. Get the data off the ID:
     const {title,body} = req.body
 
-        //3. Find and update Note:
-        const updatedNote = await Note.findByIdAndUpdate(noteId, {
-            title: title,
-            body: body
-        })
+    //3. Get user id:
+    const userId = req.user._id;
 
-        //4. Retrieve updated note and send it as a response:
-        res.json({note: updatedNote})
+    //3. Find and update Note:
+    const updatedNote = await Note.findOneAndUpdate({ _id: noteId, user: userId },
+        {
+        title: title,
+        body: body},
+        { new: true }
+    );
+
+    res.json({ note: updatedNote });
 }
 
 // -----Delete a specific note:
@@ -71,9 +82,10 @@ const deleteNote = async (req, res) => {
 
     //1. Get the ID off the URL:
     const noteId = req.params.id
+    const userId = req.user._id;
 
     //2. Delete the record:
-    const deletedNote = await Note.findByIdAndDelete(noteId);
+    const deletedNote = await Note.findOneAndDelete({ _id: noteId, user: userId });
 
     //3. Send response:
     res.json({ message: "Note deleted" });

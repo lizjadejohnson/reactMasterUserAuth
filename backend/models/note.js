@@ -13,8 +13,14 @@ const noteSchema = new mongoose.Schema({
 //This is the typical naming convention. Because we're in our note file its noteSchema. If it were a 
 //file called todo we might call it todoSchema, etc.
     title: String,
-    body: String
-})
+    body: String,
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
+});
+
 
 const Note = mongoose.model("Note", noteSchema)
 

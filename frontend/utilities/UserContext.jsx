@@ -35,7 +35,8 @@ const UserProvider = ({ children }) => {
       try {
         //This logs the user in
         const response = await axios.post('http://localhost:3000/users/login', { email, password }, { withCredentials: true });
-        
+        const token = response.data.token; // Assuming the token is in the response body
+        localStorage.setItem('token', token); // Store token in localStorage
         //This sets the user state to the user
         setUser(response.data.user);
       } catch (error) {
@@ -74,6 +75,8 @@ const UserProvider = ({ children }) => {
     const signup = async (username, email, password) => {
       try {
         const response = await axios.post('http://localhost:3000/users', { username, email, password }, { withCredentials: true });
+        const token = response.data.token; // Assuming the token is in the response body
+        localStorage.setItem('token', token); // Store token in localStorage
         setUser(response.data.user);
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {

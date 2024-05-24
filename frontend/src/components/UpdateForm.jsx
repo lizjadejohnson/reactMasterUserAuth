@@ -17,21 +17,23 @@ export default function UpdateForm({ updateForm, setUpdateForm, setNotes, setSho
           headers: {
             'Content-Type': 'application/json'
           },
+          credentials: 'include', // Include credentials (cookies)
           body: JSON.stringify(updateForm)
         });
-        const updatedNote = await response.json();
+
+        const data = await response.json();
         setNotes(prevNotes =>
-          prevNotes.map(note => note._id === updatedNote._id ? updatedNote : note)
+          prevNotes.map(note => note._id === data.note._id ? data.note : note)
         );
   
-        setUpdateForm(prevState => ({
-          ...prevState,
-          id: null,
+        setUpdateForm({
+          _id: null,
           title: '',
           body: ''
-        }));
+      });
   
         setShowEdit(false); // Hide the form after updating!!
+        
       } catch (error) {
         console.error(error)
       }
