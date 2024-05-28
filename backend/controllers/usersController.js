@@ -131,7 +131,7 @@ const createUser = async (req, res) => {
 const updateUser = async (req, res) => {
 
     const userId = req.user._id;  // Get id off the authenticated token
-    const { username, password, email, dob, timeOfBirth } = req.body;
+    const { username, password, email, dob } = req.body;
 
     // Validate input types upfront:
     if (email && typeof email !== 'string') {
