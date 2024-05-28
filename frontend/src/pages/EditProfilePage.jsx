@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../utilities/UserContext';
-import { useNavigate } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 
 const EditProfilePage = () => {
@@ -9,27 +8,29 @@ const EditProfilePage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [dob, setDob] = useState('');
     const [message, setMessage] = useState('');
 
-    const navigate = useNavigate();
 
     useEffect(() => {
         // Pre-fill the form with the current user data
         if (user) {
-            setUsername(user.username);
-            setEmail(user.email);
+            setUsername(user.username || '');
+            setEmail(user.email || '');
+            setDob(user.dob || '');
         }
     }, [user]);
 
     const handleUpdate = async (event) => {
         event.preventDefault();
+        //Ensure updated password matches before attempting to save:
         if (password !== confirmPassword) {
             setMessage('Passwords do not match.');
             setTimeout(() => setMessage(''), 5000);
             return;
         }
         try {
-            await updateUser({ username, email, password });
+            await updateUser({ username, email, password, dob });
             setMessage('Profile updated successfully!');
             setTimeout(() => setMessage(''), 5000);
         } catch (error) {
@@ -84,6 +85,15 @@ const EditProfilePage = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
+                <div>
+                    <label>Date of Birth:</label>
+                    <input
+                        type="date"
+                        value={dob}
+                        onChange={(e) => setDob(e.target.value)}
+                    />
+                </div>
+                
                 <button type="submit">Update Profile</button>
             </form>
             {message && <p style={{ color: 'red' }}>{message}</p>}

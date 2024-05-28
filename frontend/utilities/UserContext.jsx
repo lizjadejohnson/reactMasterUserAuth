@@ -16,7 +16,9 @@ const UserProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
           const response = await axios.get('http://localhost:3000/users/me', { withCredentials: true });
+          //This sets the user state to the user:
           setUser(response.data.user);
+
       } catch (error) {
           console.error('Failed to fetch user:', error);
           setUser(null);
@@ -35,10 +37,8 @@ const UserProvider = ({ children }) => {
       try {
         //This logs the user in
         const response = await axios.post('http://localhost:3000/users/login', { email, password }, { withCredentials: true });
-        const token = response.data.token; // Assuming the token is in the response body
-        localStorage.setItem('token', token); // Store token in localStorage
-        //This sets the user state to the user
         setUser(response.data.user);
+
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           throw new Error(error.response.data.message);
@@ -72,12 +72,11 @@ const UserProvider = ({ children }) => {
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Function to sign up:
-    const signup = async (username, email, password) => {
+    const signup = async ( username, email, password, dob ) => {
       try {
-        const response = await axios.post('http://localhost:3000/users', { username, email, password }, { withCredentials: true });
-        const token = response.data.token; // Assuming the token is in the response body
-        localStorage.setItem('token', token); // Store token in localStorage
+        const response = await axios.post('http://localhost:3000/users', {username, email, password, dob}, { withCredentials: true });
         setUser(response.data.user);
+
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           throw new Error(error.response.data.message);
@@ -94,6 +93,7 @@ const UserProvider = ({ children }) => {
       try {
           const response = await axios.put('http://localhost:3000/users/me', userData, { withCredentials: true });
           setUser(response.data.user);
+
           return response.data;
         } catch (error) {
           if (error.response && error.response.data && error.response.data.message) {

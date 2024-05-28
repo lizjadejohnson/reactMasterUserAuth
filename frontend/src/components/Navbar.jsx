@@ -47,7 +47,7 @@ const Navbar = () => {
         <nav className="navbar">
             <span className='navbar-title'>Notes App</span>
             <ul>
-                <li><a href="/">Home</a></li>
+                <li><Link to="/">Home</Link></li>
                 {user ? (
                     <li className="dropdown">
                         <a href="#" className="dropdown-toggle">Account</a>
