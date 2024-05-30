@@ -57,6 +57,14 @@
   color: #888;
 }
 
+.delete-button{
+  background-color: rgb(231, 153, 166);
+}
+
+.delete-button:hover{
+  background-color: rgba(255, 93, 122, 0.582);
+}
+
 /* ================= NAVBAR =================*/
 .navbar {
   display: flex;

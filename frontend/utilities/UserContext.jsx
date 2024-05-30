@@ -103,11 +103,33 @@ const UserProvider = ({ children }) => {
           }
         }
       };
+      /////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //Function to delete user:
   
+    const deleteUser = async () => {
+      try {
+        //This will DELETE the user!!!
+        await axios.delete('http://localhost:3000/users/me', { withCredentials: true });
+        
+        //This sets the user state back to null
+        setUser(null);
+      } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          throw new Error(error.response.data.message);
+        } else {
+          throw new Error('Deletion failed');
+        }
+      }
+
+    };
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+
     return (
         //Allows us to wrap components with the user state
         //Provides access to the loigin & logout functions as well as the user state:
-      <UserContext.Provider value={{ user, login, logout, signup, updateUser }}>
+      <UserContext.Provider value={{ user, login, logout, signup, updateUser, deleteUser }}>
         {children}
       </UserContext.Provider>
     );

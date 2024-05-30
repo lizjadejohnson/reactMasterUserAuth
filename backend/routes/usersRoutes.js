@@ -37,7 +37,7 @@ router.put("/me", authenticate, usersController.updateUser);
 
 
 // Delete a user (DELETE)
-router.delete("/:id", authenticate, usersController.deleteUser);
+router.delete("/me", authenticate, usersController.deleteUser);
 
 // Define a protected route
 router.get("/protected/data", authenticate, (req, res) => {
