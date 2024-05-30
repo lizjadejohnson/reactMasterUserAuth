@@ -19,7 +19,7 @@ const noteSchema = new mongoose.Schema({
         ref: 'User',
         required: true
     }
-});
+}, {timestamps: true});
 
 
 const Note = mongoose.model("Note", noteSchema)
