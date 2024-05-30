@@ -202,7 +202,7 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
 
     //1. Get the ID off the URL:
-    const userId = req.params.id
+    const userId = req.user._id;  // Get id off the authenticated token
 
     //2. Delete the record:
     const deletedUser = await User.findByIdAndDelete(userId);

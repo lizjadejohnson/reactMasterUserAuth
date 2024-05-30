@@ -46,7 +46,7 @@ const Note = ({notes, note, setNotes}) => {
           setShowEdit={setShowEdit}
         />
       )}
-      <button onClick={() => handleClick(note._id)}>Delete</button>
+      <button onClick={() => handleClick(note._id)} className='delete-button'>Delete</button>
     </div>
   );
 }
