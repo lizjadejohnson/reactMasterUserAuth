@@ -1,7 +1,9 @@
+import apiUrl from "../src/config";
+
 export async function getNotes(setState) {
 
   try {
-    const response = await fetch('http://localhost:3000/notes', {
+    const response = await fetch(`${apiUrl}/notes`, {
           credentials: 'include' // Include credentials (cookies)
       });
     const data = await response.json();

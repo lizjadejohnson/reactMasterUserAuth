@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import apiUrl from '../config';
 
 const CreateForm = ({ setNotes }) => {
     const [createForm, setCreateForm] = useState({ title: '', body: '' });
@@ -13,7 +14,7 @@ const CreateForm = ({ setNotes }) => {
     async function handleSubmit(event) {
       event.preventDefault()
       try {
-        const response = await fetch('http://localhost:3000/notes', {
+        const response = await fetch(`${apiUrl}/notes`, {
           method: "POST",
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include', // Include credentials (cookies)

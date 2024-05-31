@@ -1,5 +1,6 @@
 import {useState, useEffect, createContext} from 'react'
 import axios from 'axios';
+import apiUrl from '../src/config';
 
 //Creating a user context:
 const UserContext = createContext();
@@ -15,7 +16,7 @@ const UserProvider = ({ children }) => {
     // Function to fetch user data based on the token
     const fetchUser = async () => {
       try {
-          const response = await axios.get('http://localhost:3000/users/me', { withCredentials: true });
+          const response = await axios.get(`${apiUrl}/users/me`, { withCredentials: true });
           //This sets the user state to the user:
           setUser(response.data.user);
 
@@ -36,7 +37,7 @@ const UserProvider = ({ children }) => {
     const login = async (email, password) => {
       try {
         //This logs the user in
-        const response = await axios.post('http://localhost:3000/users/login', { email, password }, { withCredentials: true });
+        const response = await axios.post(`${apiUrl}/users/login`, { email, password }, { withCredentials: true });
         setUser(response.data.user);
 
       } catch (error) {
@@ -55,7 +56,7 @@ const UserProvider = ({ children }) => {
     const logout = async () => {
       try {
         //This logs the user out
-        await axios.get('http://localhost:3000/users/logout', { withCredentials: true });
+        await axios.get(`${apiUrl}/users/logout`, { withCredentials: true });
         
         //This sets the user state back to null
         setUser(null);
@@ -74,7 +75,7 @@ const UserProvider = ({ children }) => {
     //Function to sign up:
     const signup = async ( username, email, password, dob ) => {
       try {
-        const response = await axios.post('http://localhost:3000/users', {username, email, password, dob}, { withCredentials: true });
+        const response = await axios.post(`${apiUrl}/users`, {username, email, password, dob}, { withCredentials: true });
         setUser(response.data.user);
 
       } catch (error) {
@@ -91,7 +92,7 @@ const UserProvider = ({ children }) => {
     //Function to edit profile
     const updateUser = async (userData) => {
       try {
-          const response = await axios.put('http://localhost:3000/users/me', userData, { withCredentials: true });
+          const response = await axios.put(`${apiUrl}/users/me`, userData, { withCredentials: true });
           setUser(response.data.user);
 
           return response.data;
@@ -110,7 +111,7 @@ const UserProvider = ({ children }) => {
     const deleteUser = async () => {
       try {
         //This will DELETE the user!!!
-        await axios.delete('http://localhost:3000/users/me', { withCredentials: true });
+        await axios.delete(`${apiUrl}/users/me`, { withCredentials: true });
         
         //This sets the user state back to null
         setUser(null);

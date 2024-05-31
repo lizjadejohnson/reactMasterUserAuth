@@ -25,7 +25,7 @@ const usersRoutes = require('./routes/usersRoutes.js');
 app.use(express.json()) //Express doesn't naturally convert our data to json
 app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:5000', // This refers to the frontend port, needed for credentials
+    origin: ['http://localhost:5000', 'https://react-master-template.onrender.com'],
     credentials: true
   }));
 

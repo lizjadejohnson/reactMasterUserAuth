@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import UpdateForm from './UpdateForm';
+import apiUrl from '../config';
 
 const Note = ({notes, note, setNotes}) => {
 
@@ -9,7 +10,7 @@ const Note = ({notes, note, setNotes}) => {
 
   async function handleClick(_id) {
     try {
-      await fetch(`http://localhost:3000/notes/${_id}`, {
+      await fetch(`${apiUrl}/notes/${_id}`, {
         method: "DELETE",
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // Include credentials (cookies)
