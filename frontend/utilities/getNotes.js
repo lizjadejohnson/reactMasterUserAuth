@@ -1,3 +1,4 @@
+import React from "react";
 import apiUrl from "../src/config";
 
 export async function getNotes(setState) {
