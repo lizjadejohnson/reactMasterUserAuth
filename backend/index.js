@@ -35,16 +35,6 @@ connectToDb()
 // ---------------------------------------------reQs
 // ---------------------------------------------Routing
 
-// Serve static files from the React app Dist build:
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
-
-// Also serve static files from the public directory:
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
-
-//When you access the localhost, serve the index.html file from the frontend:
-app.get("/", (req,res)=>{
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
-})
 
 
 //-----Objective: We want to establish CRUD routes for our Notes model-----
@@ -57,7 +47,16 @@ app.use("/notes", notesRoutes);
 app.use("/todos", todosRoutes);
 app.use("/users", usersRoutes);
 
+// Serve static files from the React app Dist build:
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 
+// Also serve static files from the public directory:
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
+
+// Serve the index.html file for any other path
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
+});
 
 // -------------------------------- [Databse Connection]------------------------------
 app.listen(PORT, () => {
