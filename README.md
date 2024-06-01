@@ -90,11 +90,11 @@ From here, you can follow the rest of the instructions to launch a Render app.
     <br />
     h. For just the frontend, you will need to go into the Redirects/Rewrite options in your Render Dashboard and enter a source of /* a destination of /index.html and an action of rewrite and save that.
     <br />
-5. Add both of your Render page URLs to your CORS configuration in your backend's index.js:
+5. Add both of your FRONTEND Render page URLs to your CORS configuration in your backend's index.js (no backend URLS in CORS here):
     <br />
     app.use(cors({
     <br />
-        origin: ['http://localhost:5000', 'http://localhost:3000', 'https://the-url-to-your-frontend-site.com', 'https://the-url-to-your-backend-site.com'],
+        origin: ['http://localhost:5000', 'https://the-url-to-your-frontend-site.com'],
     <br />
         credentials: true
     <br />
