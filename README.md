@@ -17,11 +17,9 @@ VISIT http://localhost:5000/
 <br />
 Ensure that you remember to install all dependencies for the root/frontend/backend. From the root directory run:
 <br />
-npm run build
+npm install && npm install --prefix frontend && npm install --prefix backend
 <br />
 npm run dev spins up the front and backend servers in local development.
-<br />
-npm start and npm run build are used in Render/production.
 <br />
 **.env:**
 <br />
@@ -35,18 +33,17 @@ DB_URL=mongodb+srv://MONGOUSERNAME:YOURCLUSERPASSWORD.STRING.mongodb.net/DBNAME
 <br />
 JWT_SECRET=WHATEVERYOUWANTYOURSECRETKEYTOBE
 <br />
-You will also need to create 2 frontend env files:
+You will also need to create a frontend .env file:
 <br />
 In the frontend folder, make a file called .env that contains:
 <br />
-VITE_API_URL=http://localhost:3000
+VITE_API_URL=http://localhost:3000/api
 <br />
-And add another file in the frontend called .env.production that contains:
-<br />
-VITE_API_URL=the-url-to-your-deployed-site.com
+Please note that when we set up Render, this will be different!
 <br />
 
-The current project is setup so that Concurrently runs the backend and frontend locally with npm run dev and if you have a Render setup you can run it in production with npm start and npm run build. The Render site is not required to run locally following all previous instructions.
+
+The current project is setup so that Concurrently runs the backend and frontend locally with npm run dev and if you have a Render setup you can run it in production. The Render site is not required to run locally following all previous instructions.
 <br />
 
 From here, you can follow the rest of the instructions to launch a Render app.
@@ -54,30 +51,49 @@ From here, you can follow the rest of the instructions to launch a Render app.
 
 **RENDER INFO**
 <br />
-1. First, ensure you have followed all previous instructions to have Concurrently and have all the package.json's set up correctly.
+1. First, ensure you have followed all previous instructions to have Concurrently and have all the package.json's and everything else set up correctly.
 2. Create / log in to a Render account: https://dashboard.render.com/
+    <br />
+3. Set up your backend project in Render:
     <br />
     a. Click the New + button.
     <br />
-    b. Choose Web Service
+    b. Choose Web Service. This will be to build out our backend.
     <br />
     c. Build from a GitHub repository
     <br />
-    d. Set region, leave branch as master, leave root directory blank, leave runtime as Node, etc.
+    d. Set region, leave branch as master, leave root directory **blank** (not backend, etc), leave runtime as Node, etc.
     <br />
-    e. Change the "build command" to: npm run build
+    e. Change the "build command" to: npm install --prefix backend
     <br />
-    f. Change the "start command" to: npm start
+    f. Change the "start command" to: npm start --whiteboard=backend
     <br />
-    g. Add the environment variables from the backend .env (it allows you to copy and paste for ease) as well as the new VITE_API_URL=the-url-to-your-deployed-site
+    g. Add the backend-only environment variables from the backend .env (it allows you to copy and paste for ease)
     <br />
     *Note: We do not need to add the local host env variable because it doesn't apply to our production site.
     <br />
-3. Add your Render page's URL to your CORS configuration in your backend's index.js:
+4. Set up your frontend project in Render:
+    <br />
+    a. Click the New + button.
+    <br />
+    b. Choose static site. This will be to build out our frontend.
+    <br />
+    c. Build from a GitHub repository
+    <br />
+    d. Set region, leave branch as master, leave root directory **blank** (not frontend, etc), leave runtime as Node, etc.
+    <br />
+    e. Change the "build command" to: npm install --prefix frontend && npm run build --prefix frontend
+    <br />
+    f. Change the "publish directory" to: frontend/dist
+    <br />
+    g. Add the frontend .env but DO NOT USE the one you have set up locally. Enter a new one with the same key of VITE_API_URL but a value of whatever your backend URL is (e.g.: https://notes-app-backend.onrender.com/api). We do not need to add the local host env variable because it doesn't apply to our production site. Keep that only locally.
+    <br />
+
+5. Add both of your Render page URLs to your CORS configuration in your backend's index.js:
     <br />
     app.use(cors({
     <br />
-        origin: ['http://localhost:5000', 'https://the-url-to-your-deployed-site.com'],
+        origin: ['http://localhost:5000', 'http://localhost:3000', 'https://the-url-to-your-frontend-site.com', 'https://the-url-to-your-backend-site.com'],
     <br />
         credentials: true
     <br />
@@ -95,5 +111,14 @@ From here, you can follow the rest of the instructions to launch a Render app.
     <br />
     Again, in Render you will start with npm start and build with npm run build. Locally, you will start with npm run dev.
     <br />
-
 At this point, you should have a fully functional frontend, backend, local development and production site using Render.
+    <br />
+Again, if you are working in development and want to be seeing all your changes in real time in your localhost, you will use the command:
+    <br />
+    npm run dev on localhost:5000
+    <br />
+If you clone this project and want to ensure all dependencies are set up, from root you'll run:
+    <br />
+npm install && npm install --prefix frontend && npm install --prefix backend
+    <br />
+Good luck!

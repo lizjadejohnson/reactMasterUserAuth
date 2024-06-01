@@ -24,8 +24,9 @@ const usersRoutes = require('./routes/usersRoutes.js');
 // --------------Middlewares--------------
 app.use(express.json()) //Express doesn't naturally convert our data to json
 app.use(cookieParser());
+/// Add all domains:
 app.use(cors({
-    origin: ['http://localhost:5000', 'https://react-master-template.onrender.com'],
+    origin: ['http://localhost:5000', 'https://react-master-template.onrender.com','https://react-master-template-backend.onrender.com'],
     credentials: true
   }));
 
@@ -43,9 +44,9 @@ connectToDb()
 //Specific routes are defined in the routes/xxxRoutes.js docs
 
 // ------------------------- USE OUR ROUTES -------------------------
-app.use("/notes", notesRoutes);
-app.use("/todos", todosRoutes);
-app.use("/users", usersRoutes);
+app.use("/api/notes", notesRoutes);
+app.use("/api/todos", todosRoutes);
+app.use("/api/users", usersRoutes);
 
 // Serve static files from the React app Dist build:
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
@@ -54,6 +55,7 @@ app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
 // Serve the index.html file for any other path
+//We will have this set up in Render to but we're keeping it here as a fallback.
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 });

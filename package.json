@@ -1,11 +1,13 @@
 {
-  "name": "your-app-name",
-				  "version": "1.0.0",
-				  
-				  "scripts": {
-				    "start": "concurrently \"npm run start --prefix frontend\" \"npm run start --prefix backend\"",
-				    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
-				    "build": "npm install && npm install --prefix frontend && npm install --prefix backend && npm run build --prefix    frontend"
+  "name": "notes-app",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\"",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build": "npm run build:all",
+    "build:all": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "cd frontend && npm install && npm run build",
+    "build:backend": "cd backend && npm install && npm run build"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
