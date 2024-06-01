@@ -19,6 +19,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
+    "magickal-diary": "file:..",
     "mongoose": "^8.4.0",
     "notes-app": "file:..",
     "react-router-dom": "^6.23.1"

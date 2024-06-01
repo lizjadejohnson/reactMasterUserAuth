@@ -1,5 +1,5 @@
 {
-  "name": "notes-app",
+  "name": "magickal-diary",
   "version": "1.0.0",
   "scripts": {
     "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\"",
@@ -9,7 +9,7 @@
     "build:frontend": "cd frontend && npm install && npm run build",
     "build:backend": "cd backend && npm install"
   },
-  "dependencies": {
+  "devDependencies": {
     "concurrently": "^8.2.2"
   }
 }
