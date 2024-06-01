@@ -20,8 +20,8 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.0",
-    "react-router-dom": "^6.23.1",
-    "your-app-name": "file:.."
+    "notes-app": "file:..",
+    "react-router-dom": "^6.23.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.0"

@@ -2,7 +2,7 @@
   "name": "notes-app",
   "version": "1.0.0",
   "scripts": {
-    "start": "npm start --prefix backend",
+    "start": "concurrently \"npm start --prefix backend\" \"npm start --prefix frontend\"",
     "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
     "build": "npm run build:all",
     "build:all": "npm run build:frontend && npm run build:backend",

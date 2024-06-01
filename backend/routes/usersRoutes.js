@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/usersController.js')
-const authenticate = require('../config/jwtAuth.js'); // adjust the path as needed
+const authenticate = require('../config/jwtAuth.js');
 
 //Note that some routes have been commented out - these were for template purposes.
 //Feel free to comment/uncomment/edit as needed for your application

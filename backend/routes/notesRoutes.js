@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const notesController = require("../controllers/notesController.js");
-const authenticate = require('../config/jwtAuth.js'); // adjust the path as needed
+const authenticate = require('../config/jwtAuth.js');
 
 
 //-------------------------NOTES ROUTES-------------------------
