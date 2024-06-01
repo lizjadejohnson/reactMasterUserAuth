@@ -26,7 +26,7 @@ app.use(express.json()) //Express doesn't naturally convert our data to json
 app.use(cookieParser());
 /// Add all domains:
 app.use(cors({
-    origin: ['http://localhost:5000', 'https://react-master-template.onrender.com','https://react-master-template-backend.onrender.com'],
+    origin: ['http://localhost:5000', 'https://react-master-template-rw3m.onrender.com','https://react-master-template-backend.onrender.com'],
     credentials: true
   }));
 
