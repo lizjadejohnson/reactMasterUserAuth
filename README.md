@@ -62,7 +62,7 @@ From here, you can follow the rest of the instructions to launch a Render app.
     <br />
     c. Build from a GitHub repository
     <br />
-    d. Set region, leave branch as master, leave root directory **blank** (not backend, etc), leave runtime as Node, etc.
+    d. Set region, leave branch as master, leave root directory **blank** (not backend, etc), leave runtime as Node, etc.  Do not name the project as what you would want your primary URL to be, name it something like example-app-backend. The URL is generated based on the name.
     <br />
     e. Change the "build command" to: npm install --prefix backend
     <br />
@@ -80,7 +80,7 @@ From here, you can follow the rest of the instructions to launch a Render app.
     <br />
     c. Build from a GitHub repository
     <br />
-    d. Set region, leave branch as master, leave root directory **blank** (not frontend, etc), leave runtime as Node, etc.
+    d. Set region, leave branch as master, leave root directory **blank** (not frontend, etc), leave runtime as Node, etc. Name the project as what you would want your primary URL to be. The URL is generated based on the name.
     <br />
     e. Change the "build command" to: npm install --prefix frontend && npm run build --prefix frontend
     <br />
@@ -88,7 +88,8 @@ From here, you can follow the rest of the instructions to launch a Render app.
     <br />
     g. Add the frontend .env but DO NOT USE the one you have set up locally. Enter a new one with the same key of VITE_API_URL but a value of whatever your backend URL is (e.g.: https://notes-app-backend.onrender.com/api). We do not need to add the local host env variable because it doesn't apply to our production site. Keep that only locally.
     <br />
-
+    h. For just the frontend, you will need to go into the Redirects/Rewrite options in your Render Dashboard and enter a source of /* a destination of /index.html and an action of rewrite and save that.
+    <br />
 5. Add both of your Render page URLs to your CORS configuration in your backend's index.js:
     <br />
     app.use(cors({
