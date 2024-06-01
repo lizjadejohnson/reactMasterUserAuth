@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 /// Add all FRONTEND domains (no backend):
 app.use(cors({
-    origin: ['http://localhost:5000', 'https://react-master-template.onrender.com'],
+    origin: ['http://localhost:5000', 'https://react-master-template-rw3m.onrender.com'],
     credentials: true
   }));
 
