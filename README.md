@@ -66,11 +66,15 @@ From here, you can follow the rest of the instructions to launch a Render app.
     <br />
     e. Change the "build command" to: npm install --prefix backend
     <br />
-    f. Change the "start command" to: npm start --whiteboard=backend
+    f. Change the "start command" to: npm start --prefix backend
     <br />
-    g. Add the backend-only environment variables from the backend .env (it allows you to copy and paste for ease)
+    g. Add the backend-only environment variables from the backend .env (it allows you to copy and paste for ease). Add environment variables from the backend .env you have in your local file (it allows you to copy and paste for ease). These should be the DB_URL, the JWT_SECRET and the PORT.
     <br />
     *Note: We do not need to add the local host env variable because it doesn't apply to our production site.
+    <br />
+    In addition, only in Render (not locally) you will want to add a key of NODE_ENV with a value of production and a NODE_VERSION with a key of 20.12.1
+    <br />
+    So that is 2 total env settings for the front end on Render.
     <br />
 4. Set up your frontend project in Render:
     <br />
@@ -87,6 +91,10 @@ From here, you can follow the rest of the instructions to launch a Render app.
     f. Change the "publish directory" to: frontend/dist
     <br />
     g. Add the frontend .env but DO NOT USE the one you have set up locally. Enter a new one with the same key of VITE_API_URL but a value of whatever your backend URL is (e.g.: https://notes-app-backend.onrender.com/api). We do not need to add the local host env variable because it doesn't apply to our production site. Keep that only locally.
+    <br />
+    In addition, only in Render not in your local file, you'll want to add another env key of NODE_VERSION and a value of 20.12.1
+    <br />
+    So that is 2 total env settings for the front end on Render.
     <br />
     h. For just the frontend, you will need to go into the Redirects/Rewrite options in your Render Dashboard and enter a source of /* a destination of /index.html and an action of rewrite and save that.
     <br />
@@ -120,6 +128,6 @@ Again, if you are working in development and want to be seeing all your changes 
     <br />
 If you clone this project and want to ensure all dependencies are set up, from root you'll run:
     <br />
-npm install && npm install --prefix frontend && npm install --prefix backend
+npm run install:all
     <br />
 Good luck!
