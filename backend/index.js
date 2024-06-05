@@ -90,6 +90,7 @@ if (process.env.NODE_ENV === 'development') {
         res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
     });
   }
+  
 // -------------------------------- [Databse Connection]------------------------------
 app.listen(PORT, () => {
     console.log(`Express server listening on port number ${PORT}`)

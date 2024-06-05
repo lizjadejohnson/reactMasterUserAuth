@@ -16,6 +16,7 @@ const fetchAllNotes = async (req, res) => {
     }
 };
 
+///////////////////////////////////////////////////////////////////////////////////////
 
 // -----Get specific Notes by ID (GET):
 const fetchNote = async (req, res) => {
@@ -31,6 +32,7 @@ const fetchNote = async (req, res) => {
     res.json({note: note})
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
 
 // -----Create a Note (POST):
 const createNote = async (req, res) => {
@@ -53,6 +55,7 @@ const createNote = async (req, res) => {
     res.json({note: note})
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
 
 // -----Update a specific note
 const updateNote = async (req, res) => {
@@ -77,6 +80,8 @@ const updateNote = async (req, res) => {
     res.json({ note: updatedNote });
 }
 
+///////////////////////////////////////////////////////////////////////////////////////
+
 // -----Delete a specific note:
 const deleteNote = async (req, res) => {
 
@@ -90,6 +95,8 @@ const deleteNote = async (req, res) => {
     //3. Send response:
     res.json({ message: "Note deleted" });
 }
+
+///////////////////////////////////////////////////////////////////////////////////////
 
 
 module.exports = {
