@@ -11,15 +11,17 @@ Backend: 3000
 <br />
 Frontend: 5000
 <br />
-Proxy (setup on the backend package.json): 3000
+(Proxy setup on the vite config)
 <br />
 VISIT http://localhost:5000/
 <br />
 Ensure that you remember to install all dependencies for the root/frontend/backend. From the root directory run:
 <br />
-npm install && npm install --prefix frontend && npm install --prefix backend
+npm run install-all
 <br />
-npm run dev spins up the front and backend servers in local development.
+Thanks to concurrently this will ensure all dependencies are up to date as well as build the frontend.
+<br />
+npm run dev will then spin up the front and backend servers in local development.
 <br />
 **.env:**
 <br />
@@ -39,7 +41,7 @@ In the frontend folder, make a file called .env that contains:
 <br />
 VITE_API_URL=http://localhost:3000/api
 <br />
-Please note that when we set up Render, this will be different!
+Please note that when we set up Render, we will be adjusting things a little!
 <br />
 
 
@@ -62,19 +64,19 @@ From here, you can follow the rest of the instructions to launch a Render app.
     <br />
     c. Build from a GitHub repository
     <br />
-    d. Set region, leave branch as master, leave root directory **blank** (not backend, etc), leave runtime as Node, etc.  Do not name the project as what you would want your primary URL to be, name it something like example-app-backend. The URL is generated based on the name.
+    d. Set region, leave branch as master, set the root directory as backend, leave runtime as Node, etc.  Do not name the project as what you would want your primary URL to be, name it something like example-app-backend. The URL is generated based on the name.
     <br />
-    e. Change the "build command" to: npm install --prefix backend
+    e. Change the "build command" to: npm install
     <br />
-    f. Change the "start command" to: npm start --prefix backend
+    f. Change the "start command" to: npm start
     <br />
     g. Add the backend-only environment variables from the backend .env (it allows you to copy and paste for ease). Add environment variables from the backend .env you have in your local file (it allows you to copy and paste for ease). These should be the DB_URL, the JWT_SECRET and the PORT.
     <br />
     *Note: We do not need to add the local host env variable because it doesn't apply to our production site.
     <br />
-    In addition, only in Render (not locally) you will want to add a key of NODE_ENV with a value of production and a NODE_VERSION with a key of 20.12.1
+    In addition, only in Render (not locally) you will want to add a key of NODE_ENV with a value of production.
     <br />
-    So that is 2 total env settings for the front end on Render.
+    So that is 4 total env settings for the back end on Render.
     <br />
 4. Set up your frontend project in Render:
     <br />
@@ -84,30 +86,22 @@ From here, you can follow the rest of the instructions to launch a Render app.
     <br />
     c. Build from a GitHub repository
     <br />
-    d. Set region, leave branch as master, leave root directory **blank** (not frontend, etc), leave runtime as Node, etc. Name the project as what you would want your primary URL to be. The URL is generated based on the name.
+    d. Set region, leave branch as master, set root directory as frontend, leave runtime as Node, etc. Name the project as what you would want your primary URL to be. The URL is generated based on the name.
     <br />
-    e. Change the "build command" to: npm install --prefix frontend && npm run build --prefix frontend
+    e. Change the "build command" to: npm install; npm run build
     <br />
-    f. Change the "publish directory" to: frontend/dist
+    f. Change the "publish directory" to: dist
     <br />
-    g. Add the frontend .env but DO NOT USE the one you have set up locally. Enter a new one with the same key of VITE_API_URL but a value of whatever your backend URL is (e.g.: https://notes-app-backend.onrender.com/api). We do not need to add the local host env variable because it doesn't apply to our production site. Keep that only locally.
+    g. Add the frontend .env but DO NOT USE the one you have set up locally. Enter a new one with the same key of VITE_API_URL but a value of whatever your backend URL is (e.g.: https://example-app-backend.onrender.com/api). We do not need to add the local host env variable because it doesn't apply to our production site. Keep that only locally.
     <br />
-    In addition, only in Render not in your local file, you'll want to add another env key of NODE_VERSION and a value of 20.12.1
-    <br />
-    So that is 2 total env settings for the front end on Render.
+    So that is only 1 total env setting for the front end on Render.
     <br />
     h. For just the frontend, you will need to go into the Redirects/Rewrite options in your Render Dashboard and enter a source of /* a destination of /index.html and an action of rewrite and save that.
     <br />
 5. Add both of your FRONTEND Render page URLs to your CORS configuration in your backend's index.js (no backend URLS in CORS here):
     <br />
-    app.use(cors({
+    const allowedOrigins = ['http://localhost:5000', 'https://example-frontend.onrender.com'];
     <br />
-        origin: ['http://localhost:5000', 'https://the-url-to-your-frontend-site.com'],
-    <br />
-        credentials: true
-    <br />
-    }));
-        <br />
 4. Be sure to add your Render site to your Mongo whitelist - In Mongo:
     <br />
     a. Access Network Access Settings:
@@ -124,10 +118,10 @@ At this point, you should have a fully functional frontend, backend, local devel
     <br />
 Again, if you are working in development and want to be seeing all your changes in real time in your localhost, you will use the command:
     <br />
-    npm run dev on localhost:5000
+    npm run dev from the parent directory and visit localhost:5000
     <br />
-If you clone this project and want to ensure all dependencies are set up, from root you'll run:
+If you clone this project and want to ensure all dependencies are set up, from root you'll need to remember to first run:
     <br />
-npm run install:all
+npm run install-all
     <br />
 Good luck!
