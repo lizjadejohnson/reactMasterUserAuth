@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { getNotes } from '../../utilities/getNotes';
 import Note from '../components/Note';
-import CreateForm from '../components/CreateForm';
+import NoteCreateForm from '../components/NoteCreateForm';
 import { UserContext } from '../../utilities/UserContext';
 import { Link } from 'react-router-dom';
 
@@ -23,7 +23,7 @@ export default function NotesPage() {
 
   return (
     <div>
-      <CreateForm setNotes={setNotes} />
+      <NoteCreateForm setNotes={setNotes} />
       {notes.length > 0 ? (
         notes.map(note => (
           <Note 
@@ -34,7 +34,7 @@ export default function NotesPage() {
           />
         ))
       ) : (
-        <p>No notes to display. Try creating some!</p>
+        <p>No notes to display. Try creating some!.</p>
       )}
     </div>
   );

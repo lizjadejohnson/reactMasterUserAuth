@@ -24,9 +24,9 @@ router.post("/", usersController.createUser);
 // User login (POST)
 router.post("/login", usersController.loginUser);
 
+
 // User logout (GET)
 router.get("/logout", authenticate, usersController.logoutUser);
-
 
 // Fetch current user (GET)
 router.get("/me", authenticate, usersController.fetchMe);

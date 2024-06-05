@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import apiUrl from '../config';
 
-const CreateForm = ({ setNotes }) => {
+const NoteCreateForm = ({ setNotes }) => {
     const [createForm, setCreateForm] = useState({ title: '', body: '' });
 
     function handleChange(event) {
@@ -38,6 +38,7 @@ const CreateForm = ({ setNotes }) => {
         <h1>Create Note</h1>
         <form onSubmit={handleSubmit}>
           <input
+            id='create-note-title'
             type='text'
             name='title'
             placeholder='Note Title'
@@ -45,6 +46,7 @@ const CreateForm = ({ setNotes }) => {
             onChange={handleChange}
           /><br />
           <textarea
+            id='create-note-body'
             name='body'
             cols='50' rows='5'
             placeholder='Note Body'
@@ -57,4 +59,4 @@ const CreateForm = ({ setNotes }) => {
     );
   }
 
-export default CreateForm
+export default NoteCreateForm

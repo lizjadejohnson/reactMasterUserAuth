@@ -7,6 +7,7 @@ import SignUpPage from './pages/SignUpPage';
 import AboutPage from './pages/AboutPage';
 import EditProfilePage from './pages/EditProfilePage';
 import HeroImage from './components/HeroImage';
+import apiUrl from './config';
 
 
 function App() {
