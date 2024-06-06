@@ -6,6 +6,9 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const cors = require("cors");
 
+//For cross-site cookies on Render:
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
 //Pulls Mongoose connection into main application
 const connectToDb = require("./config/connectToDb")
 
@@ -31,7 +34,7 @@ app.use(cookieParser());
 /// CORS setup with logging for debugging:
 
 //List all frontend domains (no backends):
-const allowedOrigins = ['http://localhost:5000', 'https://react-master-template-rw3m.onrender.com', 'https://react-master-template.onrender.com'];
+const allowedOrigins = ['http://localhost:5000', 'https://react-master-template-rw3m.onrender.com'];
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -78,7 +81,14 @@ app.use("/api/notes", notesRoutes);
 app.use("/api/todos", todosRoutes);
 app.use("/api/users", usersRoutes);
 
-
+// Proxy requests to the frontend (this is needed to manage cross site cookies on Render)
+app.use('/', createProxyMiddleware({
+    target: 'http://react-master-template-rw3m.onrender.com',
+    changeOrigin: true,
+    pathRewrite: {
+        '^/api': '', // Remove /api prefix when forwarding to backend
+    },
+}));
 
 // Serve static files and handle SPA routing only in development (because otherwise we handle this explicitly in Render):
 if (process.env.NODE_ENV === 'development') {
