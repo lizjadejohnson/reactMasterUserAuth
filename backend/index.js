@@ -78,7 +78,12 @@ app.use("/api/notes", notesRoutes);
 app.use("/api/todos", todosRoutes);
 app.use("/api/users", usersRoutes);
 
-
+// Proxy API requests to backend
+app.use("/api", (req, res) => {
+    // Proxy request to backend
+    const targetUrl = "https://react-master-template.onrender.com";
+    req.pipe(request(targetUrl + req.url)).pipe(res);
+});
 
 // Serve static files and handle SPA routing only in development (because otherwise we handle this explicitly in Render):
 if (process.env.NODE_ENV === 'development') {
