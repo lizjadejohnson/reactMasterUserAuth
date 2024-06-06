@@ -113,7 +113,7 @@ const createUser = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Use 'Lax' for local development
-            domain: process.env.NODE_ENV === 'production' ? 'react-master-template-rw3m.onrender.com' : 'localhost',
+            domain: process.env.NODE_ENV === 'production' ? 'onrender.com' : 'localhost',
             maxAge: 24 * 60 * 60 * 1000 // 1 day
         });
         
@@ -186,7 +186,7 @@ const updateUser = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Use 'Lax' for local development
-            domain: process.env.NODE_ENV === 'production' ? 'react-master-template-rw3m.onrender.com' : 'localhost',
+            domain: process.env.NODE_ENV === 'production' ? 'onrender.com' : 'localhost',
             maxAge: 24 * 60 * 60 * 1000 // 1 day
         });
 
@@ -257,7 +257,7 @@ const loginUser = async (req, res) => {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax', // Use 'Lax' for local development
-            domain: process.env.NODE_ENV === 'production' ? 'react-master-template-rw3m.onrender.com' : 'localhost',
+            domain: process.env.NODE_ENV === 'production' ? 'onrender.com' : 'localhost',
             maxAge: 24 * 60 * 60 * 1000
         });
         //Return entire user data except the password:
