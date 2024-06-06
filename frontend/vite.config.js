@@ -20,6 +20,11 @@ export default defineConfig(({ mode }) => {
         '/api': {
           target: env.VITE_API_URL,
           changeOrigin: true,
+          secure: false,
+          cookieDomainRewrite: {
+            "localhost": "localhost", // Rewrite cookies for local development
+            "react-master-template.onrender.com": "react-master-template.onrender.com" // Maintain domain for production (hypothetical)
+          },
           rewrite: (path) => path.replace(/^\/api/, '')
         }
       }

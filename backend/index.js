@@ -31,7 +31,7 @@ app.use(cookieParser());
 /// CORS setup with logging for debugging:
 
 //List all frontend domains (no backends):
-const allowedOrigins = ['http://localhost:5000', 'http://localhost:3000', 'https://react-master-template-rw3m.onrender.com','https://react-master-template.onrender.com'];
+const allowedOrigins = ['http://localhost:5000', 'https://react-master-template-rw3m.onrender.com'];
 
 app.use(cors({
     origin: function (origin, callback) {
