@@ -31,7 +31,7 @@ app.use(cookieParser());
 /// CORS setup with logging for debugging:
 
 //List all frontend domains (no backends):
-const allowedOrigins = ['http://localhost:5000', 'http://localhost:3000', 'https://react-master-template-rw3m.onrender.com','https://react-master-template.onrender.com'];
+const allowedOrigins = ['http://localhost:5000', 'https://react-master-template-rw3m.onrender.com'];
 
 app.use(cors({
     origin: function (origin, callback) {
@@ -78,12 +78,6 @@ app.use("/api/notes", notesRoutes);
 app.use("/api/todos", todosRoutes);
 app.use("/api/users", usersRoutes);
 
-// Proxy API requests to backend
-app.use("/api", (req, res) => {
-    // Proxy request to backend
-    const targetUrl = "https://react-master-template.onrender.com";
-    req.pipe(request(targetUrl + req.url)).pipe(res);
-});
 
 // Serve static files and handle SPA routing only in development (because otherwise we handle this explicitly in Render):
 if (process.env.NODE_ENV === 'development') {
