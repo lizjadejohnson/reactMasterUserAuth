@@ -1,24 +1,20 @@
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import apiUrl from "./src/config"; // Import the API URL from your config file
 
 export default defineConfig(({ mode }) => {
-  // Load environment variables based on the current mode (development, production, etc.)
-  const env = loadEnv(mode, process.cwd(), '');
-  console.log(`Running in ${mode} mode with VITE_API_URL: ${env.VITE_API_URL}`);
-
-
   return {
     plugins: [react()],
     define: {
       'process.env': {
-        VITE_API_URL: env.VITE_API_URL
+        VITE_API_URL: JSON.stringify(apiUrl)
       }
     },
     server: {
       port: 5000,
       proxy: {
         '/api': {
-          target: env.VITE_API_URL,
+          target: apiUrl,
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, '')
         }
@@ -29,6 +25,7 @@ export default defineConfig(({ mode }) => {
     }
   };
 });
+
 
 //The proxy configuration in Vite is used to make API calls from the frontend development server (running on port 5000)
 //to the backend server (running on port 3000).
