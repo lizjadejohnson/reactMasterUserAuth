@@ -81,9 +81,9 @@ app.use("/api/notes", notesRoutes);
 app.use("/api/todos", todosRoutes);
 app.use("/api/users", usersRoutes);
 
-// Proxy requests to the frontend (this is needed to manage cross site cookies on Render)
+// Proxy requests with the backend target (this is needed to manage cross site cookies on Render)
 app.use('/', createProxyMiddleware({
-    target: 'http://react-master-template-rw3m.onrender.com',
+    target: 'https://react-master-template.onrender.com/api',
     changeOrigin: true,
     pathRewrite: {
         '^/api': '', // Remove /api prefix when forwarding to backend
