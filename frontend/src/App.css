@@ -15,11 +15,13 @@
 }
 
 .MainContent {
-
   flex-grow: 1; /* Takes up all available space after navbar (explicitly set) is accounted for */
   display: flex;
   flex-direction: column;
+  color: black;
+  background-color: white;
 }
+
 
 .logo {
   height: 6em;
@@ -83,7 +85,8 @@
 
 .navbar-title {
   color: white;
-  font-size: 24px;
+  font-size: 1.75em;
+  text-transform: uppercase;
 }
 
 .navbar ul {
@@ -98,7 +101,7 @@
 .navbar a, .dropdown-menu a {
   color: white;
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 15px 15px;
 
 }
 
@@ -121,7 +124,7 @@
   position: absolute;
   top: 125%;
   left: 0;
-  min-width: 100px;
+  min-width: 120px;
   z-index: 1;
 }
 
@@ -160,6 +163,27 @@ textarea {
 /* Display dropdown menu only when its parent is hovered over */
 .navbar ul li:hover > ul {
   display: inherit;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+
+  .navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 15px;
+    margin-left: 0 auto;
+    box-sizing: border-box;
+  }
+
+  .navbar ul {
+    gap: 3px;
+  }
+
+  .navbar-title {
+    display: none;
+  }
 }
 
 
