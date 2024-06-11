@@ -37,49 +37,18 @@ app.use(cookieParser());
     // ? ['https://react-auth-template.onrender.com']
     // : ['http://localhost:5000', 'http://localhost:3000'];
 
+
 // Adjusting CORS settings for development and production environments
 const isProduction = process.env.NODE_ENV === 'production';
 const allowedOrigins = isProduction ? ['https://react-auth-template.onrender.com'] : ['http://localhost:5000', 'http://localhost:3000'];
 
-
-
-// app.use(cors({
-//     origin: function (origin, callback) {
-//         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-//             callback(null, true);
-//         } else {
-//             console.log('Not allowed by CORS:', origin);
-//             callback(new Error('Not allowed by CORS'));
-//         }
-//     },
-//     credentials: true,
-//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//     optionsSuccessStatus: 200,
-//     preflightContinue: true
-// }));
-
-// app.use((req, res, next) => {
-//     console.log("CORS middleware hit:", req.headers.origin);
-//     res.header('Access-Control-Allow-Origin', req.headers.origin);
-//     res.header('Access-Control-Allow-Credentials', 'true');
-//     res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
-//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-//     next();
-// });
-
-app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl requests)
-        if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.indexOf(origin) === -1) {
-            var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    },
+const corsOptions = {
+    origin: allowedOrigins,
     credentials: true // Important: This enables cookies to be sent and received
-}));
+};
+
+// Use the cors middleware with options
+app.use(cors(corsOptions));
 
 // Additional security headers setup
 app.use((req, res, next) => {
