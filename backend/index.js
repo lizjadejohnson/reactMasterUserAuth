@@ -31,29 +31,60 @@ app.use(cookieParser());
 /// CORS setup with logging for debugging:
 
 //List all frontend domains (no backends):
-const allowedOrigins = process.env.NODE_ENV === 'production' 
+// const allowedOrigins = process.env.NODE_ENV === 'production' 
     // ? ['https://react-master-template-rw3m.onrender.com', 'https://react-master-template.onrender.com'] 
-    ? ['https://react-auth-template.onrender.com']
-    : ['http://localhost:5000', 'http://localhost:3000'];
+    // ? ['https://react-auth-template.onrender.com']
+    // : ['http://localhost:5000', 'http://localhost:3000'];
+
+// Adjusting CORS settings for development and production environments
+const isProduction = process.env.NODE_ENV === 'production';
+const allowedOrigins = isProduction ? ['https://react-auth-template.onrender.com'] : ['http://localhost:5000', 'http://localhost:3000'];
+
+
+
+// app.use(cors({
+//     origin: function (origin, callback) {
+//         if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+//             callback(null, true);
+//         } else {
+//             console.log('Not allowed by CORS:', origin);
+//             callback(new Error('Not allowed by CORS'));
+//         }
+//     },
+//     credentials: true,
+//     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//     optionsSuccessStatus: 200,
+//     preflightContinue: true
+// }));
+
+// app.use((req, res, next) => {
+//     console.log("CORS middleware hit:", req.headers.origin);
+//     res.header('Access-Control-Allow-Origin', req.headers.origin);
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+//     next();
+// });
 
 app.use(cors({
     origin: function (origin, callback) {
-        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-            callback(null, true);
-        } else {
-            console.log('Not allowed by CORS:', origin);
-            callback(new Error('Not allowed by CORS'));
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) === -1) {
+            var msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+            return callback(new Error(msg), false);
         }
+        return callback(null, true);
     },
-    credentials: true,
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    optionsSuccessStatus: 200,
-    preflightContinue: true
+    credentials: true // Important: This enables cookies to be sent and received
 }));
 
+// Additional security headers setup
 app.use((req, res, next) => {
-    console.log("CORS middleware hit:", req.headers.origin);
-    res.header('Access-Control-Allow-Origin', req.headers.origin);
+    // Setting headers that help secure your app
+    const origin = allowedOrigins.includes(req.headers.origin) ? req.headers.origin : allowedOrigins[0];
+    res.header('Access-Control-Allow-Origin', origin); // Reflect the origin or use a default
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT,DELETE');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
