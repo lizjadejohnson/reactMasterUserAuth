@@ -29,16 +29,12 @@ app.use(express.json()) //Express doesn't naturally convert our data to json
 app.use(cookieParser());
 
 
+
 /// CORS setup with logging for debugging:
 
-//List all frontend domains (no backends):
-// const allowedOrigins = process.env.NODE_ENV === 'production' 
-    // ? ['https://react-master-template-rw3m.onrender.com', 'https://react-master-template.onrender.com'] 
-    // ? ['https://react-auth-template.onrender.com']
-    // : ['http://localhost:5000', 'http://localhost:3000'];
 
-
-// Adjusting CORS settings for development and production environments
+// Adjusting CORS settings for development and production environments (in development we need both our backend and frontend servers!)
+//This is because when developing live in localhost, we are using a proxy in vite config so we can see updates without having to rebuild the frontend all the time.
 const isProduction = process.env.NODE_ENV === 'production';
 const allowedOrigins = isProduction ? ['https://react-auth-template.onrender.com'] : ['http://localhost:5000', 'http://localhost:3000'];
 
@@ -84,9 +80,6 @@ app.use("/api/todos", todosRoutes);
 
 
 
-// Serve static files and handle SPA routing only in development (because otherwise we handle this explicitly in Render):
-// if (process.env.NODE_ENV === 'development') {
-  
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -5,11 +5,6 @@ import apiUrl from "./src/config"; // Import the API URL from your config file
 export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
-    // define: {
-    //   'process.env': {
-    //     VITE_API_URL: JSON.stringify(apiUrl)
-    //   }
-    // },
     server: {
       port: 5000,
       proxy: {
@@ -26,7 +21,7 @@ export default defineConfig(({ mode }) => {
   };
 });
 
-
+//This Vite config is for local development.
 //The proxy configuration in Vite is used to make API calls from the frontend development server (running on port 5000)
 //to the backend server (running on port 3000).
 
@@ -37,3 +32,7 @@ export default defineConfig(({ mode }) => {
 // The backend is served on http://localhost:3000/api.
 // The Vite proxy redirects all /api calls from the frontend to the backend,
 //making the frontend *think* it's calling http://localhost:5000/api, while it's actually hitting http://localhost:3000.
+//This is why we need CORS set up in the backend to allow both localhost 3000 and 5000.
+
+//IMPORTANT: This set up allows us to have continual live development while developing in local host without needing to constantly rebuild the publicly served frontend
+//In Render, the frontend is just served from the backend.
