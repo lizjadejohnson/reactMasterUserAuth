@@ -26,8 +26,11 @@ Remember to create a **new** .env file in the backend directory!
 It should look like:
 <br />
 PORT=3000
+<br />
 DB_URL=*mongodb+srv://MONGOUSERNAME:YOURCLUSERPASSWORD.STRING.mongodb.net/DBNAME*
+<br />
 JWT_SECRET=*WHATEVERYOUWANTYOURSECRETKEYTOBE*
+<br />
 NODE_ENV=development
 <br />
 A frontend env file is not necessary with this set up. You will need to ensure you utilize the config.js file, however.
@@ -63,7 +66,7 @@ From here, if you have followed all steps above, you should have a working local
     <br />
 	*Note: We do not need to add the local host env variable because it doesn't apply to our production site.*
     <br />
-**    IMPORTANT: Locally our NODE_ENV is set to development. Only in Render (not locally) you will want to add a key of NODE_ENV with a value of production.**
+	*IMPORTANT: Locally our NODE_ENV is set to development. Only in Render (not locally) you will want to add a key of NODE_ENV with a value of production.*
     <br />
     (So that is 4 total env settings for the back end on Render.)
     <br />
