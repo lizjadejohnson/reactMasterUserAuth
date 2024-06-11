@@ -16,9 +16,10 @@ const PORT = process.env.PORT || 3000;
 
 
 // ---------Importing our Route documents--------------
+const usersRoutes = require('./routes/usersRoutes.js');
 const notesRoutes = require('./routes/notesRoutes.js');
 const todosRoutes = require('./routes/todosRoutes.js');
-const usersRoutes = require('./routes/usersRoutes.js');
+
 
 
 /////////////////////////////////////////////////////////////////////////
@@ -108,9 +109,10 @@ connectToDb()
 //Specific routes are defined in the routes/xxxRoutes.js docs
 
 // ------------------------- USE OUR ROUTES -------------------------
+app.use("/api/users", usersRoutes);
 app.use("/api/notes", notesRoutes);
 app.use("/api/todos", todosRoutes);
-app.use("/api/users", usersRoutes);
+
 
 
 // Serve static files and handle SPA routing only in development (because otherwise we handle this explicitly in Render):
