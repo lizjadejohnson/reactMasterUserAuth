@@ -118,13 +118,14 @@ app.use("/api/todos", todosRoutes);
 // Serve static files and handle SPA routing only in development (because otherwise we handle this explicitly in Render):
 // if (process.env.NODE_ENV === 'development') {
   
-    // Serve static files from the Vite build directory
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
 
-// Fallback to index.html for SPA
 app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+
 // }
   
 // -------------------------------- [Databse Connection]------------------------------
