@@ -5,11 +5,11 @@ import apiUrl from "./src/config"; // Import the API URL from your config file
 export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
-    define: {
-      'process.env': {
-        VITE_API_URL: JSON.stringify(apiUrl)
-      }
-    },
+    // define: {
+    //   'process.env': {
+    //     VITE_API_URL: JSON.stringify(apiUrl)
+    //   }
+    // },
     server: {
       port: 5000,
       proxy: {

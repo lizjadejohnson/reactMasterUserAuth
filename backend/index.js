@@ -32,7 +32,8 @@ app.use(cookieParser());
 
 //List all frontend domains (no backends):
 const allowedOrigins = process.env.NODE_ENV === 'production' 
-    ? ['https://react-master-template-rw3m.onrender.com', 'https://react-master-template.onrender.com'] 
+    // ? ['https://react-master-template-rw3m.onrender.com', 'https://react-master-template.onrender.com'] 
+    ? ['https://react-auth-template.onrender.com']
     : ['http://localhost:5000', 'http://localhost:3000'];
 
 app.use(cors({
@@ -82,16 +83,16 @@ app.use("/api/users", usersRoutes);
 
 
 // Serve static files and handle SPA routing only in development (because otherwise we handle this explicitly in Render):
-if (process.env.NODE_ENV === 'development') {
+// if (process.env.NODE_ENV === 'development') {
   
     // Serve static files from the Vite build directory
-    app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
-  
-    // Fallback to index.html for SPA
-    app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
-    });
-  }
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
+
+// Fallback to index.html for SPA
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
+});
+// }
   
 // -------------------------------- [Databse Connection]------------------------------
 app.listen(PORT, () => {
