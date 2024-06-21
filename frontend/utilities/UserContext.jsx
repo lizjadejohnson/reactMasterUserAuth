@@ -13,29 +13,34 @@ const UserProvider = ({ children }) => {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////
 
+
     // Function to fetch user data based on the token
     const fetchUser = async () => {
-
-      if (!document.cookie.includes('token')) { // Check if 'token' cookie is present
-        console.log('No authentication token found in cookies.');
-        setUser(null);
-        return;
-      }
-
       try {
-        const response = await axios.get(`${apiUrl}/users/me`, { withCredentials: true });
-        setUser(response.data.user);
+          const response = await axios.get(`${apiUrl}/users/me`, { withCredentials: true });
+          if (response.status === 200 && response.data.user) {
+              setUser(response.data.user);
+          } else {
+              throw new Error('Authentication failed');
+          }
       } catch (error) {
-        console.error('Failed to fetch user:', error);
-        setUser(null);
-
+          if (error.response && error.response.status === 401) {
+              // Quietly handle 401 error and assume the user is not logged in
+              console.log('User is not logged in.'); // Optionally log for debugging
+              setUser(null);
+          } else {
+              // Log other errors, which are likely genuine issues
+              console.error('Failed to fetch user:', error);
+              setUser(null);
+          }
       }
-    };
+  };
 
     // Check for the token and fetch user data when the provider mounts
     useEffect(() => {
         fetchUser();
     }, []);
+  
   
     /////////////////////////////////////////////////////////////////////////////////////////////////
 
