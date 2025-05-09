@@ -78,11 +78,11 @@ From here, if you have followed all steps above, you should have a working local
     <br />
     if (process.env.NODE_ENV === 'development') {
     <br />
-    apiUrl = 'http://localhost:3000/api';
+        apiUrl = 'http://localhost:3000/api';
     <br />
     } else if (process.env.NODE_ENV === 'production') {
     <br />
-    apiUrl = 'https://RENDERURL.onrender.com/api';
+        apiUrl = 'https://RENDERURL.onrender.com/api';
     <br />
     }
     <br />
