@@ -74,7 +74,19 @@ From here, if you have followed all steps above, you should have a working local
     <br />
 	`const allowedOrigins = isProduction ? ['https://react-auth-template.onrender.com'] : ['http://localhost:5000', 'http://localhost:3000'];`
     <br />
-5. Be sure to add your Render site to your Mongo whitelist - In Mongo:
+5. Add your Render page's URL to your front end URL configuration in frontend/src/confis.js:
+    <br />
+    if (process.env.NODE_ENV === 'development') {
+    <br />
+    apiUrl = 'http://localhost:3000/api';
+    <br />
+    } else if (process.env.NODE_ENV === 'production') {
+    <br />
+    apiUrl = 'https://RENDERURL.onrender.com/api';
+    <br />
+    }
+    <br />
+6. Be sure to add your Render site to your Mongo whitelist - In Mongo:
     <br />
 	a. Access Network Access Settings:
     <br />
